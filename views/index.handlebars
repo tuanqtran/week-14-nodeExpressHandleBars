@@ -1,0 +1,58 @@
+<!--
+Setup the index.handlebars to have the template that Handlebars can render onto.
+-->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="jumbotron" style="background-color: #ffe0b2; opacity: .8;">
+		<h1 class="text-center">Welcome to Tony's Burger Joint!</h1>
+	</div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="display: table;">
+	{{#each burgers}}
+	    {{#unless this.devoured}}
+	    	<div class="well" style="background-color: #ffe0b2; opacity: .8; height: 125px">
+		        <form action="burgers/update/{{this.id}}?_method=PUT" method="POST" style="height: 100%">
+		        	<div style="height: 50%; margin: 0 0 5px 0;">
+			        	<h2 class="text-center" style="margin: 0; height: 100%"><span><img style="height: 100%; margin: 0 5px 5px 0" src="./assets/image/hamburger.png"></span>{{this.burger_name}}</h2>
+		        	</div>			        
+			        <input type="hidden" name="devoured" value="true">
+			        <button class="btn btn-default btn-lg" style="display: table-cell; vertical-align: middle; width: 100%; float: right;" type="submit">Nom Nom Nom!</button>
+		        </form>
+		    </div>
+	    {{/unless}}
+	{{/each}}
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="display: table">
+	{{#each burgers}}
+		{{#if this.devoured}}
+			<div class="well" style="background-color: #ffe0b2; opacity: .8; height: 125px">
+		        <form action="burgers/delete/{{this.id}}?_method=DELETE" method="POST" style="height: 100%">
+		        	<div style="height: 50%; margin: 0 0 5px 0;">
+			        	<h2 class="text-center" style="margin: 0; height: 100%"><span><img style="height: 100%; margin: 0 5px 5px 0" src="./assets/image/plate.png"></span>{{this.burger_name}}</h2>
+		        	</div>	
+		        	<input type="hidden" name="devoured" value="false">
+			        <button class="btn btn-default btn-lg" style="display: table-cell; vertical-align: middle; width: 100%; float: right" type="submit">Wash the dishes!</button>
+		        </form>
+		    </div>
+		{{/if}}
+	{{/each}}	
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: table">
+	<div class="well" style="background-color: #ffe0b2; opacity: .8;">
+		<h2 class="text-center">Want a new burger? Add it below.</h2>
+		<form action="burgers/create" method="POST">
+			<div class="form-group">
+				<label for="newBurger"></label>
+				<input style="width: 100%" type="text" pattern="/([\S])+/g" id="newBurger" name="name" required>
+			</div>
+			<button class="btn btn-default btn-lg" style="display: table-cell; vertical-align: middle; width: 100%;" type="submit">Add Burger</button>
+		</form>		
+	</div>
+</div>
+
+
+
+
+
